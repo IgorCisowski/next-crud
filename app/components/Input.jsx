@@ -1,18 +1,22 @@
 import React from "react";
-import { BsFillPlusSquareFill } from "react-icons/bs";
 export default function Input({ value, setValue, handleCreate }) {
   return (
-    <div>
+    <div className="mb-4">
+      <h1 className="w-full text-center mb-2">Todo List App</h1>
       <input
-        className="border-black border-2 outline-none"
+        placeholder="Type here"
+        className="border-black border-2 outline-none w-full pl-2 py-2 text-sm mb-3"
         type="text"
         onChange={(e) => {
           setValue(e.target.value);
         }}
         value={value}
       />
-      <button className="active:scale-95" onClick={handleCreate}>
-        <BsFillPlusSquareFill />
+      <button
+        className="w-full text-center font-semibold py-3 active:scale-95 capitalize text-white bg-violet-700 rounded-md duration-100"
+        onClick={handleCreate}
+      >
+        Add new task +
       </button>
     </div>
   );

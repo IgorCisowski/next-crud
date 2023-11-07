@@ -35,7 +35,7 @@ export default function Crud() {
   };
 
   return (
-    <section>
+    <section className="mt-10">
       <Input value={value} setValue={setValue} handleCreate={handleCreate} />
       <Output
         tasks={tasks}
