@@ -1,5 +1,10 @@
 import React from "react";
-export default function Input({ value, setValue, handleCreate }) {
+export default function Input({
+  value,
+  setValue,
+  handleCreate,
+  handleKeyDown,
+}) {
   return (
     <div className="mb-4">
       <h1 className="w-full text-center mb-2">Todo List App</h1>
@@ -11,6 +16,7 @@ export default function Input({ value, setValue, handleCreate }) {
           setValue(e.target.value);
         }}
         value={value}
+        onKeyDown={handleKeyDown}
       />
       <button
         className="w-full text-center font-semibold py-3 active:scale-95 capitalize text-white bg-violet-700 rounded-md duration-100"

@@ -6,43 +6,64 @@ import Output from "./Output";
 export default function Crud() {
   const [tasks, setTasks] = useState([]);
   const [value, setValue] = useState("");
-  const [editValue, setEditValue] = useState("");
 
   //CREATE
   const handleCreate = () => {
-    setTasks([...tasks, { id: Date.now(), title: value, status: false }]);
+    if (value === "") {
+      alert("Please enter a task first");
+      return false;
+    }
+    setTasks([...tasks, { id: Date.now(), title: value, isEditing: false }]);
     setValue("");
+  };
+  //CREATE ON KEYDOWN
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleCreate();
+      e.target.blur();
+    }
   };
   // DELETE
   const handleDelete = (id) => {
     setTasks(tasks.filter((item) => item.id !== id));
   };
-  //EDIT
+  // EDIT TASK
   const handleEdit = (id) => {
     setTasks(
-      tasks.map((item) => {
-        if (item.id === id) {
-          setEditValue(item.title);
-          return {
-            ...item,
-            title: (item.title = editValue),
-            status: !item.status,
-          };
+      tasks.map((task) => {
+        if (task.id === id) {
+          task.isEditing = !task.isEditing;
         }
-        return item;
+        return task;
+      })
+    );
+  };
+  // SAVE EDITED TASK
+  const handleSave = (value, id) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          task.isEditing = !task.isEditing;
+          task.title = value;
+        }
+        return task;
       })
     );
   };
 
   return (
     <section className="mt-10">
-      <Input value={value} setValue={setValue} handleCreate={handleCreate} />
+      <Input
+        handleKeyDown={handleKeyDown}
+        value={value}
+        setValue={setValue}
+        handleCreate={handleCreate}
+      />
       <Output
         tasks={tasks}
-        setEditValue={setEditValue}
-        editValue={editValue}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
+        handleSave={handleSave}
       />
     </section>
   );
